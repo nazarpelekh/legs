@@ -34,38 +34,8 @@ ob_start('ob_html_compress');
 <section id="main-menu-section">
   <div class="wrap-section">
     <div class="container text-center">
-      <!--<div class="menu-bars"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/img/logo-mini.png" alt=""></a></div>-->
       <div class="menu-bars"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/img/logo.svg" alt=""></a></div>
-      <ul id="main-menu" class="clearfix">
-        <li><a href="#">legs</a></li>
-        <li><a href="#">Assurance-vie</a></li>
-        <li><a href="#">Donation</a></li>
-        <li><a href="#">fondation</a></li>
-        <li>
-          <a href="#">dossiers</a>
-          <ul class="sub-menu">
-            <li><a href="#">Testaments et dernières volontés</a></li>
-            <li><a href="#">Patrimoine et succession</a></li>
-            <li><a href="#">Donation et legs</a></li>
-            <li><a href="#">Fiscalité et assurance vie</a></li>
-            <li><a href="#">La création de fondation</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#">Témoignages</a>
-          <ul class="sub-menu">
-            <li><a href="#">Testaments et dernières volontés</a></li>
-            <li><a href="#">Patrimoine et succession</a></li>
-            <li><a href="#">Donation et legs</a></li>
-            <li><a href="#">Fiscalité et assurance vie</a></li>
-            <li><a href="#">La création de fondation</a></li>
-            <li><a href="#">Donation et legs</a></li>
-            <li><a href="#">Fiscalité et assurance vie</a></li>
-            <li><a href="#">La création de fondation</a></li>
-          </ul>
-        </li>
-        <li><a href="#">experts</a></li>
-      </ul>
+      <?php  wp_nav_menu(array('container' => false, 'items_wrap' => '<ul id="main-menu" class="clearfix">%3$s</ul>', 'theme_location'  => 'main_menu')); ?>
       <ul class="headers-bar">
         <li><a href="#" class="question-bar"><span class="bl-icon--letter_white"></span>Nous contacter</a></li>
         <li><a href="#" class="search-bar"><span class="bl-icon--search search-bar"></span></a></li>
