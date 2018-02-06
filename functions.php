@@ -1,5 +1,7 @@
 <?php
-
+/* Disable WordPress Admin Bar for all users but admins. */
+  show_admin_bar(false);
+  
 define ('GOOGLEMAPS', FALSE);
 
 // Recommended plugins installer
@@ -11,6 +13,18 @@ require_once('include/admin-assets/admin-addons.php');
 // Custom Posts Duplicator
 require_once('include/plugins/duplicator.php');
 
+// Async load
+function ikreativ_async_scripts($url)
+{
+    if ( strpos( $url, '#asyncload') === false )
+        return $url;
+    else if ( is_admin() )
+        return str_replace( '#asyncload', '', $url );
+    else
+    return str_replace( '#asyncload', '', $url )."' async='async";
+    }
+add_filter( 'clean_url', 'ikreativ_async_scripts', 11, 1 );
+
 function style_js()
 {
     // Use script in current template
@@ -18,15 +32,19 @@ function style_js()
         wp_register_script( 'google-map', "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=en", '', null );
         wp_enqueue_script( 'google-map' );
     }*/
-    
+    wp_deregister_script( 'jquery' );
     if(defined('GOOGLEMAPS')) {
         wp_enqueue_script('googlemaps', '//maps.googleapis.com/maps/api/js?v=3.exp&language=en&key=AIzaSyAO77hGcvxmsvOn1RSjDFQMI4YUnW89MDo', false, null, false);
     }
-    
-    wp_enqueue_script('init', get_template_directory_uri() . '/js/init.js', array('jquery'), '1.0', true);
+    wp_enqueue_style('style', get_template_directory_uri() . '/css/main.css');
+
+    wp_register_script( 'jquery', get_template_directory_uri() .'/js/jquery.min.js', '', '1.0', true );
+    wp_enqueue_script( 'slick', get_template_directory_uri() .'/js/slick.min.js', 'jquery', '1.0', true );
+    wp_enqueue_script( 'main', get_template_directory_uri() .'/js/main.js', 'jquery', '1.0', true );
+    // wp_enqueue_script('init', get_template_directory_uri() . '/js/init.js', array('jquery'), '1.0', true);
     /*    wp_enqueue_style('swiper.min', get_template_directory_uri() . '/style/swiper.min.css');*/
-    wp_enqueue_style('style', get_template_directory_uri() . '/style/style.css');
-    wp_enqueue_script('lib', get_template_directory_uri() . '/js/lib.js', array('jquery'), '1.0', true);
+    
+    // wp_enqueue_script('lib', get_template_directory_uri() . '/js/lib.js', array('jquery'), '1.0', true);
 
 }
 add_action('wp_enqueue_scripts', 'style_js');
