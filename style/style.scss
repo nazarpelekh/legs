@@ -1,0 +1,32 @@
+@import 'parts/vendors/vendors';
+@import 'parts/modules/modules';
+@import 'parts/pages/pages';
+
+html {
+  font-size: $font-base;
+  @include screen-max(768) {
+    font-size: 14px;
+  }
+}
+
+body {
+  font-family: $font, sans-serif;
+  font-weight: 400;
+  background: #fff;
+}
+
+main {
+  overflow: hidden;
+  position: relative;
+}
+
+.wrap {
+  margin: 0 auto;
+  width: $pageWidth;
+  max-width: 94%;
+  position: relative;
+}
+
+
+
+
