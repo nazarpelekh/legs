@@ -176,24 +176,9 @@ function my_theme_register_required_plugins()
             'required' => false,
         ),
         array(
-            'name' => 'WP Migrate DB',
-            'slug' => 'wp-migrate-db',
-            'required' => false,
-        ),
-        array(
-            'name' => 'Wp-scss',
-            'slug' => 'wp-scss',
-            'required' => true,
-        ),
-        array(
             'name' => 'Post Thumbnail Editor',
             'slug' => 'post-thumbnail-editor',
             'required' => true,
-        ),
-        array(
-            'name' => 'WP No Category Base',
-            'slug' => 'wp-no-category-base',
-            'required' => false,
         ),
         array(
             'name' => 'TinyMCE Advanced',
@@ -205,17 +190,6 @@ function my_theme_register_required_plugins()
             'slug' => 'ajax-thumbnail-rebuild',
             'required' => false,
         ),
-        array(
-            'name' => 'Optimize Database after Deleting Revisions',
-            'slug' => 'rvg-optimize-database',
-            'required' => false,
-        ),
-        array(
-            'name' => 'Add Logo to Admin',
-            'slug' => 'add-logo-to-admin',
-            'required' => false,
-        ),
-
         array(
             'name' => 'Advanced Custom Fields: PRO',
             'slug' => 'advanced-custom-fields-pro',
