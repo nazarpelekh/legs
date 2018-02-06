@@ -8,7 +8,7 @@ body, html {
     width: 100%;
 }
 body {
-    background: url(../../images/admin.jpg) no-repeat 50% 50%;
+    background: url(../../img/admin.jpg) no-repeat 50% 50%;
     -webkit-background-size: cover;
     -khtml-background-size: cover;
     -moz-background-size: cover;
