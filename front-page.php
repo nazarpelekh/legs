@@ -43,6 +43,8 @@ Template Name: Home Page
                     <?php foreach ($categories as $category) { ?>
                         <a href="<?php echo get_term_link($category->term_id, $category->taxonomy); ?>"><?php echo $category->name; ?></a>
                     <?php } ?>
+                    <?php wp_reset_query(); ?> 
+
 
 
 
@@ -111,17 +113,25 @@ Template Name: Home Page
 <section class="front-question-section">
     <div class="container">
         <div class="question-block clearfix">
-            <div class="img-block block-left"><img src="<?php echo get_template_directory_uri(); ?>/img/img-05.jpg" alt=""></div>
+            <div class="img-block block-left"><img src="<?php the_field("h_question_bg"); ?>" alt=""></div>
+            <?php var_dump(get_field("h_question_bg")) ?>
             <div class="text-block block-left">
-                <h2>Qu'est-ce que le legs ?</h2>
-                <p>Quam ob rem ut ii qui superiores sunt submittere se debent in amicitia, sic quodam modo lorem set amet dolor est inferiloremores.</p>
+                <h2><?php the_field("h_questions_title"); ?></h2>
+                <?php the_field('h_questions_sub_title'); ?>
                 <ul>
-                    <li><div class="q-icon q-icon-man"></div>À qui faire un legs ?</li>
-                    <li><div class="q-icon q-icon-pair"></div>Pourquoi léguer ?</li>
-                    <li><div class="q-icon q-icon-pentagon"></div>Quelles causes soutenir ?</li>
-                    <li><div class="q-icon q-icon-heart-arrow"></div>Faire un legs et devenir philanthrope</li>
+                    <?php
+                    // check if the repeater field has rows of data
+                    if( have_rows('h_list_item') ):
+                    // loop through the rows of data
+                    while ( have_rows('h_list_item') ) : the_row(); ?>
+                    <li><div class="q-icon"><img src="<?php  the_sub_field('pictogram'); ?>" alt=""></div><?php  the_sub_field('text'); ?></li>
+                    <?php
+                    endwhile;
+                    else :
+                        // no rows found
+                    endif;
+                    ?>
                 </ul>
-
                 <a href="#" class="button button--q01 button--blue-alt"><span>demandez <br/>votre brochure ></span></a>
                 <a href="#" class="button button--q02 button--blue"><span>contactez-nous ></span></a>
             </div>
