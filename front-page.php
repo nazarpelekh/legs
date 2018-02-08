@@ -1,10 +1,4 @@
 <?php get_header(); ?>
-<?php
-/*
-Template Name: Home Page
-*/
-?>
-<?php get_header(); ?>
 
 <section class="page-board front-board" style='background-image: url("<?php the_field('top_b_img'); ?>");'>
     <a href="#" class="logo-board"><img src="<?php the_field('top_b_logo'); ?>" alt=""></a>
@@ -22,28 +16,28 @@ Template Name: Home Page
                     'pad_counts' => false
                 );
                 $categories = get_categories($args);
-                ?>
+            ?>
 
-                    <?php foreach ($categories as $category) {
-                        $args = array(
-                            'post_type' => 'blog',
-                            'blog_artical_category' => $category->name,
-                        );
-                        $loop = new WP_Query($args);
-                        while ($loop->have_posts()) {
-                            $loop->the_post();
-                            ?>
-                                <?php echo $category->name; ?><br>
-                                <?php the_title(); ?> <br>                              
-                                <?php echo get_the_post_thumbnail_url($post,'full' ) ?><br>
-                                <?php echo get_the_date('d F o'); ?><br>
-                                <?php the_excerpt(); ?><br>
-                        <?php   }
-                    } ?>
-                    <?php foreach ($categories as $category) { ?>
-                        <a href="<?php echo get_term_link($category->term_id, $category->taxonomy); ?>"><?php echo $category->name; ?></a>
-                    <?php } ?>
-                    <?php wp_reset_query(); ?> 
+            <?php foreach ($categories as $category) {
+                $args = array(
+                    'post_type' => 'blog',
+                    'blog_artical_category' => $category->name,
+                );
+                $loop = new WP_Query($args);
+                while ($loop->have_posts()) {
+                    $loop->the_post();
+                    ?>
+                        <?php echo $category->name; ?><br>
+                        <?php the_title(); ?> <br>
+                        <?php echo get_the_post_thumbnail_url($post,'full' ) ?><br>
+                        <?php echo get_the_date('d F o'); ?><br>
+                        <?php the_excerpt(); ?><br>
+                <?php   }
+            } ?>
+            <?php foreach ($categories as $category) { ?>
+                <a href="<?php echo get_term_link($category->term_id, $category->taxonomy); ?>"><?php echo $category->name; ?></a>
+            <?php } ?>
+            <?php wp_reset_query(); ?>
 
 
 
@@ -55,6 +49,58 @@ Template Name: Home Page
 
 <a id="front-anchor"></a>
 <section class="news-front-section">
+
+	<?php
+	$args = array(
+		'post_type'   => 'blog',
+		'post_status' => 'publish',
+	);
+
+	$testimonials = new WP_Query( $args );
+	if( $testimonials->have_posts() ) :
+		?>
+        <ul>
+			<?php
+			while( $testimonials->have_posts() ) :
+				$testimonials->the_post();
+				?>
+                <li><?php printf( '%1$s - %2$s', get_the_title(), get_the_content() );  ?></li>
+				<?php
+			endwhile;
+			wp_reset_postdata();
+			?>
+        </ul>
+		<?php
+	else :
+		esc_html_e( 'No testimonials in the diving taxonomy!', 'text-domain' );
+	endif;
+	?>
+
+	<?php if (have_posts()) : $p = 0; while (have_posts()) : the_post(); ?>
+        <div class="posts">
+		<?php if($p == 0 && $paged == 1) { ?>
+            <a href="<?php the_permalink(); ?>" class="first_post post">
+                <div class="post__thumb"><?php the_post_thumbnail('single');?></div>
+                <div class="post__content">
+                    <h4><?php the_title(); ?></h4>
+                    <time datetime="<?php echo get_the_date('M. j. Y'); ?>"><?php echo get_the_date(); ?></time>
+                    <!--                                <p>--><?php //echo wp_trim_words(get_the_content(), 50, ''); ?><!--...<i class="more icon-right-btn"> Read More</i></p>-->
+                    <p><?php echo substr( strip_tags( get_the_content() ), 0, 146 );; ?>...</p>
+                    <i class="more icon-right-btn"> Read More</i>
+                </div>
+            </a>
+		<?php } else { ?>
+            <div class="post">
+                <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('prev_index');?></a>
+                <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                <time datetime="<?php echo get_the_date(); ?>"><?php echo get_the_date('M. j. Y'); ?></time>
+                <p><?php echo wp_trim_words(get_the_content(), 35, ''); ?><a href="<?php the_permalink(); ?>" class="more icon-right-btn"> Read More</a></p>
+            </div>
+		<?php } ?>
+		<?php $p++; endwhile; ?>
+        </div>
+	<?php endif; ?>
+
     <div class="container">
         <div class="news-block news-block--large clearfix">
             <div class="news-img block-left"><img src="<?php echo get_template_directory_uri(); ?>/img/img-01.jpg" alt=""></div>
@@ -271,5 +317,4 @@ Template Name: Home Page
     </div>
 </section>
 
-<?php get_footer(); ?>
 <?php get_footer(); ?>
