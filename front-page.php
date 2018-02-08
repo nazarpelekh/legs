@@ -160,7 +160,6 @@
     <div class="container">
         <div class="question-block clearfix">
             <div class="img-block block-left"><img src="<?php the_field("h_question_bg"); ?>" alt=""></div>
-            <?php var_dump(get_field("h_question_bg")) ?>
             <div class="text-block block-left">
                 <h2><?php the_field("h_questions_title"); ?></h2>
                 <?php the_field('h_questions_sub_title'); ?>
