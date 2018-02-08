@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <section class="page-board front-board" style='background-image: url("<?php the_field('top_b_img'); ?>");'>
-    <a href="#" class="logo-board"><img src="<?php the_field('top_b_logo'); ?>" alt=""></a>
+    <a href="#" class="logo-board"><img src="<?php the_field('logo','option'); ?>" alt=""></a>
     <div class="board-text"><?php the_field('top_b_caption'); ?></div>
     <div class="scroll-button scroll-button--down"></div>
 </section>
@@ -42,7 +42,7 @@
                                 <div class="news-date block-right"><?php echo get_the_date('d F o'); ?></div>
                             </div>
                             <div class="news-title"><?php the_title(); ?></div>
-                            <div class="news-description"><?php echo wp_trim_words( get_the_content(), 55, '' ); ?></div>
+                            <div class="news-description"><?php echo wp_trim_words( get_the_content(), 40, '' ); ?></div>
                             <a href="<?php the_permalink(); ?>" class="news-link">Lire la suite</a>
                         </div>
                     </div>
@@ -82,14 +82,14 @@
 
 			        <?php } else { ?>
                         <div class="news-block block-left">
-                            <div class="news-img"><img src="<?php echo get_template_directory_uri(); ?>/img/img-02.jpg" alt=""></div>
+                            <div class="news-img"><img src="<?php echo get_the_post_thumbnail_url($post,'full' ) ?>" alt=""></div>
                             <div class="news-text">
                                 <div class="attribute-news clearfix">
-                                    <div class="attr-name block-left">ACTUALITÉ</div>
-                                    <div class="news-date block-right">10 juin 2017</div>
+                                    <div class="attr-name block-left"><?php echo $category->name; ?></div>
+                                    <div class="news-date block-right"><?php echo get_the_date('d F o'); ?></div>
                                 </div>
-                                <div class="news-title">Testament : les erreurs à ne pas commettre</div>
-                                <a href="#" class="news-link">Lire la suite</a>
+                                <div class="news-title"><?php the_title(); ?></div>
+                                <a href="<?php the_permalink(); ?>" class="news-link">Lire la suite</a>
                             </div>
                         </div>
 			        <?php }
@@ -101,18 +101,13 @@
         </div>
         <div class="news-front-links text-center">
 	        <?php foreach ($categories as $category) { ?>
-                <a href="<?php echo get_term_link($category->term_id, $category->taxonomy); ?>"><?php echo $category->name ?></a>
 		        <?php if($category->name == 'ACTUALITÉ') { ?>
-			        <?php echo 'some' ?>
-		        <?php } else { ?>
-			        <?php echo 'fuck' ?>
+                    <a href="<?php echo get_term_link($category->term_id, $category->taxonomy); ?>" class="button"><span>TOUtes les actualités ></span></a>
 		        <?php } ?>
-		        <?php if(1) { ?>
-
+		        <?php if($category->name == 'DOSSIER') { ?>
+                    <a href="<?php echo get_term_link($category->term_id, $category->taxonomy); ?>" class="button"><span>TOUS NOS DOSSIERS ></span></a>
 		        <?php } ?>
 	        <?php } ?>
-            <a href="#" class="button"><span>TOUS NOS DOSSIERS ></span></a>
-            <a href="#" class="button"><span>TOUtes les actualités ></span></a>
         </div>
     </div>
 </section>
