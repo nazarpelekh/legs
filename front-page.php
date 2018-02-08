@@ -132,8 +132,8 @@ Template Name: Home Page
                     endif;
                     ?>
                 </ul>
-                <a href="#" class="button button--q01 button--blue-alt"><span>demandez <br/>votre brochure ></span></a>
-                <a href="#" class="button button--q02 button--blue"><span>contactez-nous ></span></a>
+                <a href="<?php the_field("h_question_b_left_link"); ?>" class="button button--q01 button--blue-alt"><span><?php the_field("h_question_b_left"); ?></span></a>
+                <a href="<?php the_field("h_question_b_right_link"); ?>" class="button button--q02 button--blue"><span><?php the_field("h_question_b_right"); ?></span></a>
             </div>
         </div>
     </div>
