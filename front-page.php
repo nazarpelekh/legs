@@ -6,11 +6,50 @@ Template Name: Home Page
 ?>
 <?php get_header(); ?>
 
-<section class="page-board front-board" style='background-image: url("<?php echo get_template_directory_uri(); ?>/img/front-board.jpg");'>
-    <a href="#" class="logo-board"><img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt=""></a>
-    <div class="board-text">Toutes les clefs pour construire un legs qui me ressemble.</div>
+<section class="page-board front-board" style='background-image: url("<?php the_field('top_b_img'); ?>");'>
+    <a href="#" class="logo-board"><img src="<?php the_field('top_b_logo'); ?>" alt=""></a>
+    <div class="board-text"><?php the_field('top_b_caption'); ?></div>
     <div class="scroll-button scroll-button--down"></div>
 </section>
+            
+            <?php
+                $args = array(
+                    'post_type' => 'blog',
+                    //'orderby' => 'name',
+                    'order' => 'ASC',
+                    'hide_empty'  => 0,
+                    'taxonomy' => 'blog_artical_category',
+                    'pad_counts' => false
+                );
+                $categories = get_categories($args);
+                ?>
+
+                    <?php foreach ($categories as $category) {
+                        $args = array(
+                            'post_type' => 'blog',
+                            'blog_artical_category' => $category->name,
+                        );
+                        $loop = new WP_Query($args);
+                        while ($loop->have_posts()) {
+                            $loop->the_post();
+                            ?>
+                                <?php echo $category->name; ?><br>
+                                <?php the_title(); ?> <br>                              
+                                <?php echo get_the_post_thumbnail_url($post,'full' ) ?><br>
+                                <?php echo get_the_date('d F o'); ?><br>
+                                <?php the_excerpt(); ?><br>
+                        <?php   }
+                    } ?>
+                    <?php foreach ($categories as $category) { ?>
+                        <a href="<?php echo get_term_link($category->term_id, $category->taxonomy); ?>"><?php echo $category->name; ?></a>
+                    <?php } ?>
+
+
+
+
+
+
+
 
 <a id="front-anchor"></a>
 <section class="news-front-section">

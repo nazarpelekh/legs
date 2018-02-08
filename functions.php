@@ -539,3 +539,129 @@ function soc(){ ?>
         </div>
 	<?php } ?>
 <?php } ?>
+<?php
+//====================================================================================================================
+//==========================================BLOG CUSTOM POST TYPE=====================================================
+//====================================================================================================================
+
+function add_blog_posts(){
+    register_post_type(
+                    'blog',
+                    array(
+                        'labels'        => array(
+                                                'name'                  => 'Blog',
+                                                'singular_name'         => 'Blog item',
+                                                'add_new'               => 'Add new',
+                                                'add_new_item'          => 'Add new item',
+                                                'edit'                  => 'Edit',
+                                                'edit_item'             => 'Edit item',
+                                                'new_item'              => 'New item',
+                                                'view'                  => 'View',
+                                                'view_item'             => 'View item',
+                                                'search_items'          => 'Search item',
+                                                'not_found'             => 'Not found',
+                                                'not_found_in_trash'    => 'Not find in trash',
+                                        ),
+                        'public'        => true,
+                        'hierarchical'  => true, 
+                        'has_archive'   => true,
+                        'menu_icon'    => 'dashicons-media-text',
+                        'supports'      => array(
+                                                'title',
+                                                'editor',
+                                                'thumbnail',
+                                                //'post-formats',
+                                                'blog_artical_category'
+                                            ),
+                        'can_export' => true,
+                    )
+    );
+}
+add_action('init','add_blog_posts');
+
+function my_taxonomies_blog_artical() {
+    $labels = array(
+        'name'              => _x( 'Category blog', 'taxonomy general name' ),
+        'singular_name'     => _x( 'Singular name', 'taxonomy singular name' ),
+        'search_items'      => __( 'Search items' ),
+        'all_items'         => __( 'All item' ),
+        'parent_item'       => __( 'Parent item' ),
+        'parent_item_colon' => __( 'Parent item colon' ),
+        'edit_item'         => __( 'Edit item' ), 
+        'update_item'       => __( 'Update item' ),
+        'add_new_item'      => __( 'Add new item' ),
+        'new_item_name'     => __( 'New item name' ),
+        'menu_name'         => __( 'Blog Category' ),
+    );
+    $args = array(
+        'labels' => $labels,
+        'hierarchical' => true,
+        'show_ui'           => true,
+        'show_admin_column' => true
+    );
+    register_taxonomy( 'blog_artical_category', 'blog', $args );
+}
+add_action( 'init', 'my_taxonomies_blog_artical', 0 );
+
+//====================================================================================================================
+//==========================================EXPERTS CUSTOM POST TYPE==================================================
+//====================================================================================================================
+
+function add_experts_posts(){
+    register_post_type(
+                    'experts',
+                    array(
+                        'labels'        => array(
+                                                'name'                  => 'Experts',
+                                                'singular_name'         => 'Experts item',
+                                                'add_new'               => 'Add new',
+                                                'add_new_item'          => 'Add new item',
+                                                'edit'                  => 'Edit',
+                                                'edit_item'             => 'Edit item',
+                                                'new_item'              => 'New item',
+                                                'view'                  => 'View',
+                                                'view_item'             => 'View item',
+                                                'search_items'          => 'Search item',
+                                                'not_found'             => 'Not found',
+                                                'not_found_in_trash'    => 'Not find in trash',
+                                        ),
+                        'public'        => true,
+                        'hierarchical'  => true, 
+                        'has_archive'   => true,
+                        'menu_icon'    => 'dashicons-universal-access',
+                        'supports'      => array(
+                                                'title',
+                                                'editor',
+                                                'thumbnail',
+                                                //'post-formats',
+                                                'experts_artical_category'
+                                            ),
+                        'can_export' => true,
+                    )
+    );
+}
+add_action('init','add_experts_posts');
+
+function my_taxonomies_experts_artical() {
+    $labels = array(
+        'name'              => _x( 'Category experts', 'taxonomy general name' ),
+        'singular_name'     => _x( 'Singular name', 'taxonomy singular name' ),
+        'search_items'      => __( 'Search items' ),
+        'all_items'         => __( 'All item' ),
+        'parent_item'       => __( 'Parent item' ),
+        'parent_item_colon' => __( 'Parent item colon' ),
+        'edit_item'         => __( 'Edit item' ), 
+        'update_item'       => __( 'Update item' ),
+        'add_new_item'      => __( 'Add new item' ),
+        'new_item_name'     => __( 'New item name' ),
+        'menu_name'         => __( 'Experts Category' ),
+    );
+    $args = array(
+        'labels' => $labels,
+        'hierarchical' => true,
+        'show_ui'           => true,
+        'show_admin_column' => true
+    );
+    register_taxonomy( 'experts_artical_category', 'experts', $args );
+}
+add_action( 'init', 'my_taxonomies_experts_artical', 0 );
