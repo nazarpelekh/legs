@@ -22,11 +22,8 @@ ob_start('ob_html_compress');
 <body class="front">
 <header id="header">
     <div class="container clearfix">
-        <button class="button-small button-question block-left"><span class="bl-icon bl-icon--letter"></span>Posez votre question</button>
-        <form action="" id="search-header-form" class="block-right">
-            <input type="search" id="search" placeholder="Rechercher un dossier, un article ...">
-            <button type="submit" class="button-small">rechercher <span class="bl-icon bl-icon--search"></span></button>
-        </form>
+        <a href="<?php the_field("contact_button_link", 'option'); ?>"><button class="button-small button-question block-left"><span class="bl-icon bl-icon--letter"></span><?php the_field("contact_button_text", 'option'); ?></button></a>
+        <?php get_search_form(); ?>
         <div class="close"><i class="fa fa-times" aria-hidden="true"></i></div>
     </div>
 </header>
@@ -38,7 +35,7 @@ ob_start('ob_html_compress');
       <?php  wp_nav_menu(array('container' => false, 'items_wrap' => '<ul id="main-menu" class="clearfix">%3$s</ul>', 'theme_location'  => 'main_menu')); ?>
       <ul class="headers-bar">
         <li><a href="#" class="question-bar"><span class="bl-icon--letter_white"></span>Nous contacter</a></li>
-        <li><a href="#" class="search-bar"><span class="bl-icon--search search-bar"></span></a></li>
+        <li><a href="#" class="search-bar"><span class="bl-icon--search search-bar"></span></a></li>        
       </ul>
       <div class="menu-mobile block-right">
         <span class="fa fa-search search-bar" aria-hidden="true"></span>
@@ -51,4 +48,5 @@ ob_start('ob_html_compress');
     </div>
   </div>
 </section>
+
 <?php wp_head(); ?>
