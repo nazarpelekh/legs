@@ -1,10 +1,4 @@
 <?php get_header(); ?>
-<?php
-/*
-Template Name: Home Page
-*/
-?>
-<?php get_header(); ?>
 
 <section class="page-board front-board" style='background-image: url("<?php the_field('top_b_img'); ?>");'>
     <a href="#" class="logo-board"><img src="<?php the_field('top_b_logo'); ?>" alt=""></a>
@@ -55,6 +49,32 @@ Template Name: Home Page
 
 <a id="front-anchor"></a>
 <section class="news-front-section">
+
+	<?php if (have_posts()) : $p = 0; while (have_posts()) : the_post(); ?>
+        <div class="posts">
+		<?php if($p == 0 && $paged == 1) { ?>
+            <a href="<?php the_permalink(); ?>" class="first_post post">
+                <div class="post__thumb"><?php the_post_thumbnail('single');?></div>
+                <div class="post__content">
+                    <h4><?php the_title(); ?></h4>
+                    <time datetime="<?php echo get_the_date('M. j. Y'); ?>"><?php echo get_the_date(); ?></time>
+                    <!--                                <p>--><?php //echo wp_trim_words(get_the_content(), 50, ''); ?><!--...<i class="more icon-right-btn"> Read More</i></p>-->
+                    <p><?php echo substr( strip_tags( get_the_content() ), 0, 146 );; ?>...</p>
+                    <i class="more icon-right-btn"> Read More</i>
+                </div>
+            </a>
+		<?php } else { ?>
+            <div class="post">
+                <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('prev_index');?></a>
+                <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                <time datetime="<?php echo get_the_date(); ?>"><?php echo get_the_date('M. j. Y'); ?></time>
+                <p><?php echo wp_trim_words(get_the_content(), 35, ''); ?><a href="<?php the_permalink(); ?>" class="more icon-right-btn"> Read More</a></p>
+            </div>
+		<?php } ?>
+		<?php $p++; endwhile; ?>
+        </div>
+	<?php endif; ?>
+
     <div class="container">
         <div class="news-block news-block--large clearfix">
             <div class="news-img block-left"><img src="<?php echo get_template_directory_uri(); ?>/img/img-01.jpg" alt=""></div>
@@ -114,7 +134,6 @@ Template Name: Home Page
     <div class="container">
         <div class="question-block clearfix">
             <div class="img-block block-left"><img src="<?php the_field("h_question_bg"); ?>" alt=""></div>
-            <?php var_dump(get_field("h_question_bg")) ?>
             <div class="text-block block-left">
                 <h2><?php the_field("h_questions_title"); ?></h2>
                 <?php the_field('h_questions_sub_title'); ?>
@@ -271,5 +290,4 @@ Template Name: Home Page
     </div>
 </section>
 
-<?php get_footer(); ?>
 <?php get_footer(); ?>
