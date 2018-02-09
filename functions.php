@@ -37,6 +37,7 @@ function style_js()
         wp_enqueue_script('googlemaps', '//maps.googleapis.com/maps/api/js?v=3.exp&language=en&key=AIzaSyAO77hGcvxmsvOn1RSjDFQMI4YUnW89MDo', false, null, false);
     }
     wp_enqueue_style('style', get_template_directory_uri() . '/css/main.css');
+    wp_enqueue_style('my_style', get_template_directory_uri() . '/css/my_style.css');
 
     wp_register_script( 'jquery', get_template_directory_uri() .'/js/jquery.min.js', '', '1.0', true );
     wp_enqueue_script( 'slick', get_template_directory_uri() .'/js/slick.min.js', 'jquery', '1.0', true );
