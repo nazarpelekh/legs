@@ -1,6 +1,6 @@
 <?php
 /* Disable WordPress Admin Bar for all users but admins. */
-  show_admin_bar(false);
+  show_admin_bar(FALSE);
   
 define ('GOOGLEMAPS', FALSE);
 
@@ -665,3 +665,4 @@ function my_taxonomies_experts_artical() {
     register_taxonomy( 'experts_artical_category', 'experts', $args );
 }
 add_action( 'init', 'my_taxonomies_experts_artical', 0 );
+
