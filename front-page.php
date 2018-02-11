@@ -140,62 +140,75 @@
     </div>
 </section>
 
-<section class="front-temoignent-section">
-    <div class="container text-center">
-        <h2>ils témoignent</h2>
-        <div class="video-block">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/52zmpRT5RFg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<?php
+$args = array(
+	'post_type'   => 'testimonials',
+	'post_status' => 'publish',
+	'post_per_page' => 1
+);
+
+$testimonials = new WP_Query( $args );
+if( $testimonials->have_posts() ) :
+	?>
+    <section class="front-temoignent-section">
+        <div class="container text-center">
+            <?php while( $testimonials->have_posts() ) : $testimonials->the_post();	?>
+            <h2><?php the_title(); ?></h2>
+            <div class="video-block">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/52zmpRT5RFg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="text-left">
+                <h3>Lorem Ipsum dolor set amet lorem</h3>
+                <p>Quam ob rem ut ii qui superiosuperiores sunt submittere se debent in amicitia, sic quodamsuperiores sunt submittere se debent in amicitia, sic quodamres sunt submittere se debent in amicitia, sic quodam modo inferiloremores </p>
+            </div>
+            <?php endwhile;
+            wp_reset_postdata();
+            ?>
+            <a href="#" class="button"><span>tous les témoignages ></span></a>
         </div>
-        <div class="text-left">
-            <h3>Lorem Ipsum dolor set amet lorem</h3>
-            <p>Quam ob rem ut ii qui superiosuperiores sunt submittere se debent in amicitia, sic quodamsuperiores sunt submittere se debent in amicitia, sic quodamres sunt submittere se debent in amicitia, sic quodam modo inferiloremores </p>
-        </div>
-        <a href="#" class="button"><span>tous les témoignages ></span></a>
-    </div>
-</section>
+    </section>
+<?php endif; ?>
 
 <section class="front-experts-section">
-    <div class="container text-center">
-        <h2><?php the_field('h_experts_title'); ?></h2>
-        <article>
-            <?php the_field('h_experts_subtitle'); ?>
-        </article>
-
-    <?php
-        $args = array(
-            'post_type' => 'experts',
-            'order' => 'ASC',
-            'post_per_page' => -1
-        );
-        $query = new WP_Query( $args ); ?>
-        <ul class="experts-list">
-    <?php if ( $query->have_posts() ) {
-                while ( $query->have_posts() ) { $query->the_post(); ?>
-            <li>
-                <div class="expert-photo"><img src="<?php echo get_the_post_thumbnail_url( $post,'full' ) ?>" alt=""></div>
-                <div class="e-name"><?php the_title(); ?></div>
-                <div class="e-post"><?php the_field('ex_position'); ?></div>
-                <div class="e-text">
-                    <?php the_field('ex_description'); ?>
+        <div class="container text-center">
+            <h2>nos experts</h2>
+            <article>Notre réseau d’experts de terrain nous permet d’élargir notre accompagnement aux thématiques de chaque projet :<br/>
+                Responsable de libéralités, Conseiller financier, etc...</article>
+            <ul class="experts-list">
+                <li>
+                    <div class="expert-photo"><img src="img/img-06.jpg" alt=""></div>
+                    <div class="e-name">John Doe</div>
+                    <div class="e-post">Conseiller financier pour la Fondation de France</div>
+                    <div class="e-text">
+                        Quam ob rem ut ii qui superiosuperiores sunt submittere se debent in amicitia sic quodamsuperiores sunt submittere se debent in amicitia, si
+                    </div>
+                </li>
+                <li>
+                    <div class="expert-photo"><img src="img/img-06.jpg" alt=""></div>
+                    <div class="e-name">John Doe2</div>
+                    <div class="e-post">Conseiller financier pour la Fondation de France</div>
+                    <div class="e-text">
+                        Quam ob rem ut ii qui superiosuperiores sunt submittere se debent in amicitia sic quodamsuperiores sunt submittere se debent in amicitia, si
+                    </div>
+                </li>
+                <li>
+                    <div class="expert-photo"><img src="img/img-06.jpg" alt=""></div>
+                    <div class="e-name">John Doe3</div>
+                    <div class="e-post">Conseiller financier pour la Fondation de France</div>
+                    <div class="e-text">
+                        Quam ob rem ut ii qui superiosuperiores sunt submittere se debent in amicitia sic quodamsuperiores sunt submittere se debent in amicitia, si
+                    </div>
+                </li>
+            </ul>
+            <div class="expert-text-block">
+                <div class="expert-name">John Doe</div>
+                <div class="expert-post">Conseiller financier pour la Fondation de France</div>
+                <div class="expert-text">
+                    Quam ob rem ut ii qui superiosuperiores sunt submittere se debent in amicitia sic quodamsuperiores sunt submittere se debent in amicitia, si
                 </div>
-            </li>
-    <?php }
-            } else {
-                // posts not found
-            }
-            wp_reset_postdata();
-    ?>
-        </ul>
-
-        <div class="expert-text-block">
-            <div class="expert-name">John Doe</div>
-            <div class="expert-post">Conseiller financier pour la Fondation de France</div>
-            <div class="expert-text">
-                Quam ob rem ut ii qui superiosuperiores sunt submittere se debent in amicitia sic quodamsuperiores sunt submittere se debent in amicitia, si
             </div>
+            <a href="#" class="button button--blue-alt"><span>découvrir <br/>tous nos experts ></span></a>
         </div>
-        <a href="#" class="button button--blue-alt"><span>découvrir <br/>tous nos experts ></span></a>
-    </div>
 </section>
 
 <section class="front-faq-section text-center">
