@@ -155,7 +155,7 @@ if( $testimonials->have_posts() ) :
             <?php while( $testimonials->have_posts() ) : $testimonials->the_post();	?>
             <h2><?php the_title(); ?></h2>
             <div class="video-block">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/52zmpRT5RFg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="<?php the_field('home_page_video') ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
             <div class="text-left">
                 <h3>Lorem Ipsum dolor set amet lorem</h3>
@@ -176,7 +176,7 @@ if( $testimonials->have_posts() ) :
                 Responsable de libéralités, Conseiller financier, etc...</article>
             <ul class="experts-list">
                 <li>
-                    <div class="expert-photo"><img src="img/img-06.jpg" alt=""></div>
+                    <div class="expert-photo"><img src="<?php echo get_template_directory_uri(); ?>/img/img-06.jpg" alt=""></div>
                     <div class="e-name">John Doe</div>
                     <div class="e-post">Conseiller financier pour la Fondation de France</div>
                     <div class="e-text">
@@ -184,7 +184,7 @@ if( $testimonials->have_posts() ) :
                     </div>
                 </li>
                 <li>
-                    <div class="expert-photo"><img src="img/img-06.jpg" alt=""></div>
+                    <div class="expert-photo"><img src="<?php echo get_template_directory_uri(); ?>/img/img-06.jpg" alt=""></div>
                     <div class="e-name">John Doe2</div>
                     <div class="e-post">Conseiller financier pour la Fondation de France</div>
                     <div class="e-text">
@@ -192,7 +192,7 @@ if( $testimonials->have_posts() ) :
                     </div>
                 </li>
                 <li>
-                    <div class="expert-photo"><img src="img/img-06.jpg" alt=""></div>
+                    <div class="expert-photo"><img src="<?php echo get_template_directory_uri(); ?>/img/img-06.jpg" alt=""></div>
                     <div class="e-name">John Doe3</div>
                     <div class="e-post">Conseiller financier pour la Fondation de France</div>
                     <div class="e-text">
@@ -279,10 +279,10 @@ if( $testimonials->have_posts() ) :
     <div class="container">
         <h2 class="text-center">ils parlent de nous</h2>
         <ul class="brand-list">
-            <li><img src="<?php echo get_template_directory_uri(); ?>/img/logo-notaires.png" alt=""></li>
-            <li><img src="<?php echo get_template_directory_uri(); ?>/img/logo-senior.png" alt=""></li>
-            <li><img src="<?php echo get_template_directory_uri(); ?>/img/logo-aider.jpg" alt=""></li>
-            <li><img class="tablet-200" src="<?php echo get_template_directory_uri(); ?>/img/logo-figaro.png" alt=""></li>
+            <li><img src="<?php echo get_template_directory_uri(); ?>/<?php  ?>img/logo-notaires.png" alt=""></li>
+            <li><img src="<?php echo get_template_directory_uri(); ?>/<?php  ?>img/logo-senior.png" alt=""></li>
+            <li><img src="<?php echo get_template_directory_uri(); ?>/<?php  ?>img/logo-aider.jpg" alt=""></li>
+            <li><img class="tablet-200" src="<?php echo get_template_directory_uri(); ?>/<?php  ?>img/logo-figaro.png" alt=""></li>
         </ul>
     </div>
 </section>

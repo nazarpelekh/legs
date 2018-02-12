@@ -730,3 +730,66 @@ function my_taxonomies_legs_artical() {
 }
 add_action( 'init', 'my_taxonomies_legs_artical', 0 );
 
+//====================================================================================================================
+//==========================================FAQ CUSTOM POST TYPE======================================================
+//====================================================================================================================
+
+function add_faq_posts(){
+    register_post_type(
+        'faq',
+        array(
+            'labels'        => array(
+                'name'                  => 'FAQ',
+                'singular_name'         => 'FAQ item',
+                'add_new'               => 'Add new',
+                'add_new_item'          => 'Add new item',
+                'edit'                  => 'Edit',
+                'edit_item'             => 'Edit item',
+                'new_item'              => 'New item',
+                'view'                  => 'View',
+                'view_item'             => 'View item',
+                'search_items'          => 'Search item',
+                'not_found'             => 'Not found',
+                'not_found_in_trash'    => 'Not find in trash',
+            ),
+            'public'        => true,
+            'hierarchical'  => true,
+            'has_archive'   => true,
+            'menu_icon'     => 'dashicons-editor-help',
+            'supports'      => array(
+                'title',
+                'editor',
+                'thumbnail',
+                //'post-formats',
+                'faq_artical_category'
+            ),
+            'can_export' => true,
+        )
+    );
+}
+add_action('init','add_faq_posts');
+
+function my_taxonomies_faq_artical() {
+    $labels = array(
+        'name'              => _x( 'Category faq', 'taxonomy general name' ),
+        'singular_name'     => _x( 'Singular name', 'taxonomy singular name' ),
+        'search_items'      => __( 'Search items' ),
+        'all_items'         => __( 'All item' ),
+        'parent_item'       => __( 'Parent item' ),
+        'parent_item_colon' => __( 'Parent item colon' ),
+        'edit_item'         => __( 'Edit item' ),
+        'update_item'       => __( 'Update item' ),
+        'add_new_item'      => __( 'Add new item' ),
+        'new_item_name'     => __( 'New item name' ),
+        'menu_name'         => __( 'FAQ Category' ),
+    );
+    $args = array(
+        'labels' => $labels,
+        'hierarchical' => true,
+        'show_ui'           => true,
+        'show_admin_column' => true
+    );
+    register_taxonomy( 'faq_artical_category', 'faq', $args );
+}
+add_action( 'init', 'my_taxonomies_faq_artical', 0 );
+
