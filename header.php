@@ -19,7 +19,7 @@ ob_start('ob_html_compress');
     <title>Legs</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 </head>
-<body class="front">
+<body class="front dessier-page">
 <header id="header">
     <div class="container clearfix">
         <a href="<?php the_field("contact_button_link", 'option'); ?>"><button class="button-small button-question block-left"><span class="bl-icon bl-icon--letter"></span><?php the_field("contact_button_text", 'option'); ?></button></a>
