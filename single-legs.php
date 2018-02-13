@@ -21,9 +21,28 @@
         <div class="container clearfix">
             <div class="page-navigation-top">
                 <div class="page-navigation text-center">
-                    <a href="#" class="page-nav page-prev"><span class="fa fa-angle-left"></span></a>
-                    <a href="#" class="page-nav page-next"><span class="fa fa-angle-right"></span></a>
-                    <div class="text-block">Lorem ipsum et doloris amoris et omni <span class="page-numb">2 | 3</span></div>
+	                <?php if (get_previous_post_link()) { ?>
+		                <?php $prevPost = get_previous_post(true);
+		                $prev_post = get_adjacent_post(false, '', true);
+		                ?>
+                        <a href="<?php echo $previous_post_url = get_permalink( get_adjacent_post(false,'',true)->ID ); ?>" class="page-nav page-prev"><span class="fa fa-angle-left"></span></a>
+                    <?php } ?>
+	                <?php if (get_next_post_link()) { ?>
+		                <?php $nextPost = get_next_post(true);
+		                $next_post = get_adjacent_post(false, '', false);
+		                ?>
+                        <a href="<?php echo $next_post_url = get_permalink( get_adjacent_post(false,'',false)->ID ); ?>" class="page-nav page-next"><span class="fa fa-angle-right"></span></a>
+	                <?php } ?>
+                    <div class="text-block">
+	                    <?php $terms = get_terms( array(
+		                    'taxonomy'       => 'legs_artical_category'
+                        ));
+	                    var_dump($terms);
+	                    foreach ( $terms as $term ) {
+		                    echo $term->name;
+		                    echo '<span class="page-numb">' . $term->term_id  .' | ' . $term->count . '</span>';
+	                    } ?>
+                    </div>
                 </div>
             </div>
             <div class="page-content block-left width-75 page-content-column">
@@ -43,19 +62,47 @@
                 <div class="dossier-block text-left">
                     <div class="title-block">SOMMAIRE DU DOSSIER</div>
                     <ul>
-                        <li>Lorem ipsum et doloris amoris et omni</li>
-                        <li>Lorem ipsum et doloris doloris eiusmod tempor doloris eiusmod</li>
-                        <li>Lorem ipsum et doloris doloris eiusmod tempor doloris eiusmod</li>
+	                    <?php if (get_previous_post_link()) { ?>
+		                    <?php $prevPost = get_previous_post(true);
+		                    $prev_post = get_adjacent_post(false, '', true);
+		                    ?>
+                            <li><?php  echo $prev_post->post_title ?></li>
+	                    <?php } ?>
+                        <li><?php the_title(); ?></li>
+	                    <?php if (get_next_post_link()) { ?>
+		                    <?php $nextPost = get_next_post(true);
+		                    $next_post = get_adjacent_post(false, '', false);
+		                    ?>
+		                    <li><?php echo $next_post->post_title ?></li>
+	                    <?php } ?>
                     </ul>
                 </div>
                 <a href="#" class="button button--blue"><span>faites un legs ></span></a>
                 <a href="#" class="button button--blue"><span>créez une fondation ></span></a>
             </aside>
-            <div class="page-navigation-bottom">
-                <div class="page-navigation text-center">
-                    <a href="#" class="page-nav page-prev"><span class="fa fa-angle-left"></span></a>
-                    <a href="#" class="page-nav page-next"><span class="fa fa-angle-right"></span></a>
-                    <div class="text-block">Lorem ipsum et doloris amoris et omni <span class="page-numb">2 | 3</span></div>
+            <div class="page-navigation text-center">
+		        <?php if (get_previous_post_link()) { ?>
+			        <?php $prevPost = get_previous_post(true);
+			        $prev_post = get_adjacent_post(false, '', true);
+			        ?>
+                    <a href="<?php echo $previous_post_url = get_permalink( get_adjacent_post(false,'',true)->ID ); ?>" class="page-nav page-prev"><span class="fa fa-angle-left"></span></a>
+		        <?php } ?>
+		        <?php if (get_next_post_link()) { ?>
+			        <?php $nextPost = get_next_post(true);
+			        $next_post = get_adjacent_post(false, '', false);
+			        ?>
+                    <a href="<?php echo $next_post_url = get_permalink( get_adjacent_post(false,'',false)->ID ); ?>" class="page-nav page-next"><span class="fa fa-angle-right"></span></a>
+		        <?php } ?>
+                <div class="text-block">
+			        <?php $terms = get_terms( array(
+				        'taxonomy'       => 'legs_artical_category'
+			        ));
+			        var_dump($terms);
+			        foreach ( $terms as $term ) {
+				        echo $term->name;
+				        echo '<span class="page-numb">' . $term->term_id  .' | ' . $term->count . '</span>';
+			        } ?>
+			        <?php wp_reset_query(); ?>
                 </div>
             </div>
         </div>
@@ -65,17 +112,85 @@
         <div class="container">
             <h2>Ces dossiers peuvent aussi vous intéresser</h2>
             <div class="news-list-block clearfix">
-                <div class="news-block block-left">
-                    <div class="news-img"><img src="img/img-02.jpg" alt=""></div>
-                    <div class="news-text">
-                        <div class="attribute-news clearfix">
-                            <div class="attr-name block-left">ACTUALITÉ</div>
-                            <div class="news-date block-right">10 juin 2017</div>
+
+
+	            <?php
+	            $args = array(
+		            'post_type' => 'legs',
+		            //'orderby' => 'name',
+		            'order' => 'ASC',
+		            'hide_empty'  => 0,
+		            'taxonomy' => 'legs_artical_category',
+		            'pad_counts' => false,
+		            'post_per_page' => 5
+	            );
+//	            $categories = get_categories($args);
+	            ?>
+
+	            <?php foreach ($categories as $category) {
+//		            $args = array(
+//			            'post_type' => 'legs',
+//			            'legs_artical_category' => $category->name,
+//		            );
+		            $loop = new WP_Query($args);
+		            while ($loop->have_posts()) { $loop->the_post(); ?>
+
+                        <div class="news-block news-block--large clearfix">
+                            <div class="news-img block-left"><img src="<?php echo get_the_post_thumbnail_url($post,'full' ) ?>" alt=""></div>
+                            <div class="news-text block-left">
+                                <div class="attribute-news clearfix">
+<!--                                    <div class="attr-name block-left">--><?php //echo $category->name; ?><!--</div>-->
+                                    <div class="news-date block-right"><?php echo get_the_date('d F o'); ?></div>
+                                </div>
+                                <div class="news-title"><?php the_title(); ?></div>
+                                <div class="news-description"><?php echo wp_trim_words( get_the_content(), 40, '' ); ?></div>
+                                <a href="<?php the_permalink(); ?>" class="news-link">Lire la suite</a>
+                            </div>
                         </div>
-                        <div class="news-title">Testament : les erreurs à ne pas commettre</div>
-                        <a href="#" class="news-link">Lire la suite</a>
-                    </div>
-                </div>
+		            <?php }
+	            } ?>
+	            <?php wp_reset_query(); ?>
+
+
+<!--	            --><?php
+//	            $currentID = get_the_ID();
+//	            $args = array(
+//		            'post_type' => 'legs',
+//		            'orderby' => 'rand',
+//		            'order' => 'ASC',
+//		            'hide_empty'  => 0,
+//		            'taxonomy' => 'legs_artical_category',
+//		            'pad_counts' => false,
+//		            'post_per_page' => -1,
+//		            'post__not_in' => array($currentID),
+//	            );
+//	            $categories = get_categories($args);
+//	            ?>
+<!---->
+<!--	            --><?php //foreach ($categories as $category) {
+//		            $args = array(
+//			            'post_type' => 'legs',
+//			            'legs_artical_category' => $category->name,
+//		            );
+//		            $loop = new WP_Query($args);
+//		            while ($loop->have_posts()) { $loop->the_post(); ?>
+<!---->
+<!--                        <div class="news-block block-left">-->
+<!--                            <div class="news-img"><img src="--><?php //echo get_the_post_thumbnail_url($post,'full' ) ?><!--" alt=""></div>-->
+<!--                            <div class="news-text">-->
+<!--                                <div class="attribute-news clearfix">-->
+<!--                                    <div class="attr-name block-left">--><?php //echo $category->name; ?><!--</div>-->
+<!--                                    <div class="news-date block-right">--><?php //echo get_the_date('d F o'); ?><!--</div>-->
+<!--                                </div>-->
+<!--                                <div class="news-title">--><?php //the_title(); ?><!--</div>-->
+<!--                                <a href="--><?php //the_permalink(); ?><!--" class="news-link">Lire la suite</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!---->
+<!--		            --><?php //}
+//	            } ?>
+<!--	            --><?php //wp_reset_query(); ?>
+
                 <div class="news-block block-left">
                     <div class="news-img"><img src="img/img-03.jpg" alt=""></div>
                     <div class="news-text">

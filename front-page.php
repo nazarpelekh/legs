@@ -10,7 +10,6 @@
 <section class="news-front-section">
 
     <div class="container">
-
 	    <?php
 	    $args = array(
 		    'post_type' => 'blog',
